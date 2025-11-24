@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yeahhjj.movie.repository.ReviewRepository">
+    <insert id="save" parameterType="com.yeahhjj.movie.domain.Review" useGeneratedKeys="true" keyProperty="id">
+        insert into `review` (
+            `reservation_id`, `user_id`, `movie_id`, `rating`, `content`, `created_at`, `updated_at`
+        )
+        values (
+            #{reservationId}, #{userId}, #{movieId}, #{rating}, #{content}, #{createdAt}, #{updatedAt}
+        )
+    </insert>
+
+    <select id="findByReservationId" resultType="com.yeahhjj.movie.domain.Review">
+        select * from `review`
+        where `reservation_id` = #{reservationId}
+    </select>
+
+    <select id="findById" resultType="com.yeahhjj.movie.domain.Review">
+        select * from `review`
+        where `id` = #{id}
+    </select>
+
+    <update id="update" parameterType="com.yeahhjj.movie.domain.Review">
+        update `review`
+        set
+            `rating` = #{rating},
+            `content` = #{content},
+            `updated_at` = #{updatedAt}
+        where `id` = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        delete from `review`
+        where `id` = #{id}
+    </delete>
+
+    <select id="findByMovieId" resultType="com.yeahhjj.movie.domain.Review">
+        select * from `review`
+        where `movie_id` = #{movieId}
+        order by `created_at` DESC
+    </select>
+</mapper>

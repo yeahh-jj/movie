@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yeahhjj.movie.repository.ScreeningRepository">
+    <insert id="save" parameterType="com.yeahhjj.movie.domain.Screening" useGeneratedKeys="true" keyProperty="id">
+        insert into `screening` (
+            `movie_id`, `start_time`, `end_time`, `total_seats`, `available_seats`, `theater`
+        )
+        values (
+            #{movieId}, #{startTime}, #{endTime}, #{totalSeats}, #{availableSeats}, #{theater}
+        )
+    </insert>
+
+    <select id="findById" resultType="com.yeahhjj.movie.domain.Screening">
+        select * from `screening`
+        where `id` = #{id}
+    </select>
+
+    <update id="update" parameterType="com.yeahhjj.movie.domain.Screening">
+        update `screening`
+        set
+            `start_time` = #{startTime},
+            `end_time` = #{endTime},
+            `total_seats` = #{totalSeats},
+            `available_seats` = #{availableSeats}
+            `theater` = #{theater}
+        where `id` = #{id}
+    </update>
+
+    <update id="updateAvailableSeats" parameterType="com.yeahhjj.movie.domain.Screening">
+        update `screening`
+        set
+            `available_seats` = #{availableSeats}
+        where `id` = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        delete from `screening`
+        where `id` = #{id}
+    </delete>
+
+    <select id="findAllByMovieId" resultType="com.yeahhjj.movie.domain.Screening">
+        select * from `screening`
+        where `movie_id` = #{movieId}
+        order by start_time ASC
+    </select>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yeahhjj.movie.repository.MovieRepository">
+    <insert id="save" parameterType="com.yeahhjj.movie.domain.Movie" useGeneratedKeys="true" keyProperty="id">
+        insert into `movie` (
+            `title`, `director`, `genre`, `description`, `running_time`
+        )
+        values (
+            #{title}, #{director}, #{genre}, #{description}, #{runningTime}
+        )
+    </insert>
+
+    <select id="findById" resultType="com.yeahhjj.movie.domain.Movie">
+        select * from `movie`
+        where `id` = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.yeahhjj.movie.domain.Movie">
+        select * from `movie`
+        order by `id` DESC
+    </select>
+
+    <delete id="deleteById" parameterType="long">
+        delete from `movie`
+        where id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.yeahhjj.movie.domain.Movie">
+        update `movie`
+        set
+            `title` = #{title},
+            `director` = #{director},
+            `genre` = #{genre},
+            `description` = #{description},
+            `running_time` = #{runningTime}
+        where `id` = #{id}
+    </update>
+</mapper>
